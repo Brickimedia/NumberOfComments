@@ -14,17 +14,29 @@ $wgExtensionCredits['variable'][] = array(
 $wgExtensionMessagesFiles['NumberOfComments'] = dirname(__FILE__) . '/NumberOfComments.i18n.php';
 $wgExtensionMessagesFiles['NumberOfCommentsMagic'] = dirname(__FILE__) . '/NumberOfComments.i18n.magic.php';
 
-
 $wgHooks['ParserGetVariableValueSwitch'][] = 'getNumberOfCommens';
+$wgHooks['MagicWordwgVariableIDs'][] = 'declareNumberOfComments';
 
 function getNumberOfComments( &$parser, &$cache, &$magicWordId, &$ret ) {
+	$dbr = wfGetDB( DB_SLAVE );
 	
-	$ret = 'NEED TO DO THIS!';
+	$id = $parser->getTitle()->getId();
+	
+	$res = $dbr->selectField(
+			'Comments',
+			'COUNT(*)',
+			array( 'Comment_Page_ID', $id )
+	);
+	
+	if( !$res ){
+		$ret = 0;
+	} else {
+		$ret = intval( $res );
+	}
 	
 	return true;
 }
 
-$wgHooks['MagicWordwgVariableIDs'][] = 'declareNumberOfComments';
 function declareNumberOfComments( &$customVariableIds ) {
 	$customVariableIds[] = 'NoC';
 
