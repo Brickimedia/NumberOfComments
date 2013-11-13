@@ -1,6 +1,6 @@
 <?php
 
-require_once( "$IP/extensions/Comments/Comments.php" );
+require_once( "$IP/extensions/Comments/Comment.php" );
 
 $wgExtensionCredits['variable'][] = array(
 		'path' => __FILE__,
