@@ -14,7 +14,7 @@ $wgExtensionCredits['variable'][] = array(
 $wgExtensionMessagesFiles['NumberOfComments'] = dirname(__FILE__) . '/NumberOfComments.i18n.php';
 $wgExtensionMessagesFiles['NumberOfCommentsMagic'] = dirname(__FILE__) . '/NumberOfComments.i18n.magic.php';
 
-$wgHooks['ParserGetVariableValueSwitch'][] = 'getNumberOfCommens';
+$wgHooks['ParserGetVariableValueSwitch'][] = 'getNumberOfComments';
 $wgHooks['MagicWordwgVariableIDs'][] = 'declareNumberOfComments';
 
 function getNumberOfComments( &$parser, &$cache, &$magicWordId, &$ret ) {
