@@ -20,7 +20,7 @@ $wgHooks['MagicWordwgVariableIDs'][] = 'declareNumberOfComments';
 function getNumberOfComments( &$parser, &$cache, &$magicWordId, &$ret ) {
 	$dbr = wfGetDB( DB_SLAVE );
 	
-	$id = $parser->getTitle()->getId();
+	$id = $parser->getTitle()->getArticleID();
 	
 	$res = $dbr->selectField(
 			'Comments',
