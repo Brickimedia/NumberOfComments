@@ -25,13 +25,19 @@ function getNumberOfComments( &$parser, &$cache, &$magicWordId, &$ret ) {
 	$res = $dbr->selectField(
 			'Comments',
 			'COUNT(*)',
-			array( 'Comment_Page_ID', $id )
+			array( 'Comment_Page_ID' => $id )
+	);
+	
+	$t = $dbr->selectSQLText(
+			'Comments',
+			'COUNT(*)',
+			array( 'Comment_Page_ID' => $id )
 	);
 	
 	if( !$res ){
 		$ret = 0;
 	} else {
-		$ret = intval( $res ) - 3; //for some reason it is always 3 more than it should be...
+		$ret = intval( $res );
 	}
 	
 	return true;
