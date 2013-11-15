@@ -31,7 +31,7 @@ function getNumberOfComments( &$parser, &$cache, &$magicWordId, &$ret ) {
 	if( !$res ){
 		$ret = 0;
 	} else {
-		$ret = intval( $res );
+		$ret = intval( $res ) - 3; //for some reason it is always 3 more than it should be...
 	}
 	
 	return true;
