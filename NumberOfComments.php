@@ -11,40 +11,13 @@ $wgExtensionCredits['variable'][] = array(
 		'version'  => 1.0,
 );
 
-$wgExtensionMessagesFiles['NumberOfComments'] = dirname(__FILE__) . '/NumberOfComments.i18n.php';
-$wgExtensionMessagesFiles['NumberOfCommentsMagic'] = dirname(__FILE__) . '/NumberOfComments.i18n.magic.php';
+$wgExtensionMessagesFiles['NumberOfComments'] = __DIR__ . '/NumberOfComments.i18n.php';
+$wgExtensionMessagesFiles['NumberOfCommentsMagic'] = __DIR__ . '/NumberOfComments.i18n.magic.php';
 
-$wgHooks['ParserGetVariableValueSwitch'][] = 'getNumberOfComments';
-$wgHooks['MagicWordwgVariableIDs'][] = 'declareNumberOfComments';
+$wgHooks['ParserGetVariableValueSwitch'][] = 'NumberOfComments::getNumberOfCommentsMagic';
+$wgHooks['MagicWordwgVariableIDs'][] = 'NumberOfComments::declareNumberOfCommentsMagic';
+$wgHooks['ParserFirstCallInit'][] = 'NumberOfComments::setupNumberOfCommentsParser';
 
-function getNumberOfComments( &$parser, &$cache, &$magicWordId, &$ret ) {
-	$dbr = wfGetDB( DB_SLAVE );
-	
-	$id = $parser->getTitle()->getArticleID();
-	
-	$res = $dbr->selectField(
-			'Comments',
-			'COUNT(*)',
-			array( 'Comment_Page_ID' => $id )
-	);
-	
-	$t = $dbr->selectSQLText(
-			'Comments',
-			'COUNT(*)',
-			array( 'Comment_Page_ID' => $id )
-	);
-	
-	if( !$res ){
-		$ret = 0;
-	} else {
-		$ret = intval( $res );
-	}
-	
-	return true;
-}
+$wgAutoLoadClasses['NumberOfComments'] = __DIR__ . '/NumberOfComments.body.php';
 
-function declareNumberOfComments( &$customVariableIds ) {
-	$customVariableIds[] = 'NoC';
-
-	return true;
-}
+require_once( __DIR__. '/NumberOfComments.body.php' );
