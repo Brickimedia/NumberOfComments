@@ -32,19 +32,30 @@ class NumberOfComments {
 	}
 
 	static function getNumberOfComments( $pageId ) {
-		$dbr = wfGetDB( DB_SLAVE );
+		global $wgMemc;
 
-		$res = $dbr->selectField(
-			'Comments',
-			'COUNT(*)',
-			array( 'Comment_Page_ID' => $pageId ),
-			__METHOD__
-		);
+		$key = wfMemcKey( 'numberofcomments', $pageId );
+		$cache = $wgMemc->get( $key );
 
-		if ( !$res ) {
-			return 0;
+		if ( $cache ) {
+			$val = intval( $cache );
 		} else {
-			return intval( $res );
+			$dbr = wfGetDB( DB_SLAVE );
+
+			$res = $dbr->selectField(
+				'Comments',
+				'COUNT(*)',
+				array( 'Comment_Page_ID' => $pageId ),
+				__METHOD__
+			);
+
+			if ( !$res ) {
+				$val = 0;
+			} else {
+				$val = intval( $res );
+			}
+			$wgMemc->set( $key, $val, 60 * 60 * 24 ); // cache for 24 hours
 		}
+		return $val;
 	}
 }
