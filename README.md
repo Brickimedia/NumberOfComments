@@ -1,4 +1,4 @@
 NumberOfComments
 ================
 
-A mediawiki extension providing a {{NUMBEROFCOMMENTS}} magic word.
+A MediaWiki extension providing a {{NUMBEROFCOMMENTS}} magic word.

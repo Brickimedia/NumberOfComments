@@ -1,13 +1,18 @@
 <?php
+/**
+ * Internationalization file for the NumberOfComments extension.
+ *
+ * @file
+ */
 
 $messages = array();
 
-$messages[ 'en' ] = array(
-		'newtalkglobal' => "newtalkglobal", 
-		'numberofcomments-desc' => "Provides a {{NUMBEROFCOMMENTS}} magic word, for use with the comments extension",
+/** English */
+$messages['en'] = array(
+	'numberofcomments-desc' => 'Provides a <nowiki>{{NoC}}</nowiki> magic word, for use with the Comments extension',
 );
 
-$messages[ 'qqq' ] = array(
-		'newtalkglobal' => "The name of the extension",
-		'numberofcomments-desc' => "{{desc}}",
+/** Message documentation */
+$messages['qqq'] = array(
+	'numberofcomments-desc' => '{{desc}}',
 );
