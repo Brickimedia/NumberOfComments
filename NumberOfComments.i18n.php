@@ -16,3 +16,8 @@ $messages['en'] = array(
 $messages['qqq'] = array(
 	'numberofcomments-desc' => '{{desc}}',
 );
+
+/** Vietnamese */
+$messages['vi'] = array (
+	'numberofcomments-desc' => 'Cung cấp một từ kỳ diệu được sử dụng với  ý kiến việc mở rộng.',
+);
